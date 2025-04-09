@@ -1,3 +1,8 @@
+from pymongo import MongoClient
+
+MONGO_CLIENT = MongoClient('mongodb://localhost:27017/')
+MONGO_DB = MONGO_CLIENT['octofit_db']
+
 # Ensure INSTALLED_APPS is initialized
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -60,12 +65,6 @@ TEMPLATES = [
 
 # Set DEFAULT_AUTO_FIELD to avoid warnings
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# Add MongoDB connection
-from pymongo import MongoClient
-
-MONGO_CLIENT = MongoClient('mongodb://localhost:27017/')
-MONGO_DB = MONGO_CLIENT['octofit_db']
 
 # Enable CORS
 MIDDLEWARE.insert(0, 'corsheaders.middleware.CorsMiddleware')
