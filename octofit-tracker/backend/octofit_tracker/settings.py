@@ -3,6 +3,15 @@ from pymongo import MongoClient
 MONGO_CLIENT = MongoClient('mongodb://localhost:27017/')
 MONGO_DB = MONGO_CLIENT['octofit_db']
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'octofit_db',
+        'HOST': 'localhost',
+        'PORT': 27017,  # Set PORT as an integer
+    }
+}
+
 # Ensure INSTALLED_APPS is initialized
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -37,14 +46,6 @@ CORS_ALLOW_ALL_ORIGINS = True
 ALLOWED_HOSTS = ['*']
 
 # Ensure PORT is an integer for MongoDB connection
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'octofit_db',
-        'HOST': 'localhost',
-        'PORT': 27017,  # Set PORT as an integer
-    }
-}
 
 # Add TEMPLATES configuration for Django admin
 TEMPLATES = [
