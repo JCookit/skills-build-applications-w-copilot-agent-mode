@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-25rsll_s*6ml5lv4l$51z6x!y5u_k!11f!hf^1&%q!$syk=ja3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'laughing-waffle-8000.app.github.dev']
 
 # Application definition
 INSTALLED_APPS = [
@@ -126,3 +126,6 @@ CORS_ALLOW_HEADERS = [
     'content-type',
     'authorization',
 ]
+
+# Ensure Django handles HTTPS properly in development
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

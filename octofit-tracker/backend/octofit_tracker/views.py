@@ -1,23 +1,29 @@
-from rest_framework import viewsets
-from .models import User, Team, Activity, Leaderboard, Workout
-from .serializers import UserSerializer, TeamSerializer, ActivitySerializer, LeaderboardSerializer, WorkoutSerializer
+from django.http import JsonResponse
+from django.views import View
+from rest_framework.viewsets import ViewSet
+from rest_framework.response import Response
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class TestEndpoint(View):
+    def get(self, request):
+        return JsonResponse({"message": "API is working on https://laughing-waffle-jrr7p557gxr2p6jx-8000.app.github.dev and localhost:8000"})
 
-class TeamViewSet(viewsets.ModelViewSet):
-    queryset = Team.objects.all()
-    serializer_class = TeamSerializer
+# Placeholder implementations for the viewsets
+class UserViewSet(ViewSet):
+    def list(self, request):
+        return Response({"message": "List of users"})
 
-class ActivityViewSet(viewsets.ModelViewSet):
-    queryset = Activity.objects.all()
-    serializer_class = ActivitySerializer
+class TeamViewSet(ViewSet):
+    def list(self, request):
+        return Response({"message": "List of teams"})
 
-class LeaderboardViewSet(viewsets.ModelViewSet):
-    queryset = Leaderboard.objects.all()
-    serializer_class = LeaderboardSerializer
+class ActivityViewSet(ViewSet):
+    def list(self, request):
+        return Response({"message": "List of activities"})
 
-class WorkoutViewSet(viewsets.ModelViewSet):
-    queryset = Workout.objects.all()
-    serializer_class = WorkoutSerializer
+class LeaderboardViewSet(ViewSet):
+    def list(self, request):
+        return Response({"message": "Leaderboard data"})
+
+class WorkoutViewSet(ViewSet):
+    def list(self, request):
+        return Response({"message": "List of workouts"})
