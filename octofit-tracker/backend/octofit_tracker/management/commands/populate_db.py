@@ -32,14 +32,18 @@ class Command(BaseCommand):
         self.stdout.write('Creating teams...')
         blue_team = Team(_id=ObjectId(), name='Blue Team')
         blue_team.save()
-        blue_team.members.set([users[0], users[1]])
+        # Explicitly set the `members` field for each team
+        blue_team.members = [users[0]._id, users[1]._id]
+        blue_team.save()
 
         gold_team = Team(_id=ObjectId(), name='Gold Team')
         gold_team.save()
-        gold_team.members.set([users[2], users[3], users[4]])
+        gold_team.members = [users[2]._id, users[3]._id, users[4]._id]
+        gold_team.save()
 
         # Create activities
         self.stdout.write('Creating activities...')
+        # Remove the `activity_id` field and rely on `_id` as the unique identifier
         activities = [
             Activity(_id=ObjectId(), user=users[0], activity_type='Cycling', duration=60, date='2025-04-01'),
             Activity(_id=ObjectId(), user=users[1], activity_type='Crossfit', duration=120, date='2025-04-02'),

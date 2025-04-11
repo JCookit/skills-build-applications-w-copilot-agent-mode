@@ -18,11 +18,7 @@ class User(models.Model):
 class Team(models.Model):
     _id = ObjectIdField(primary_key=True, editable=False)
     name = models.CharField(max_length=255, unique=True)
-    members = models.ArrayReferenceField(
-        to=User,
-        on_delete=models.CASCADE,
-        default=list  # Default to an empty list
-    )
+    members = models.JSONField(default=list)  # Default to an empty list
 
     def __str__(self):
         return self.name
