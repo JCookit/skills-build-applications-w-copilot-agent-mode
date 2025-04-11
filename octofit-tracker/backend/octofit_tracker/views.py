@@ -16,24 +16,24 @@ class UserViewSet(ViewSet):
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 
-# Update TeamViewSet to fetch members manually
+# Fix `TeamViewSet` to use `_id` and fetch members correctly
 class TeamViewSet(ViewSet):
     def list(self, request):
         teams = Team.objects.all()
         team_data = []
         for team in teams:
             team_dict = {
-                "id": str(team.id),
+                "_id": str(team._id),
                 "name": team.name,
                 "members": [
                     {
-                        "id": str(member.id),
+                        "_id": str(member._id),
                         "email": member.email,
                         "name": member.name,
                         "age": member.age,
                         "created_at": member.created_at
                     }
-                    for member in team.members.all()
+                    for member in User.objects.filter(_id__in=team.members)
                 ]
             }
             team_data.append(team_dict)

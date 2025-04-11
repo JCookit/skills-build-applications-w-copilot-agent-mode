@@ -1,35 +1,41 @@
 from rest_framework import serializers
 from .models import User, Team, Activity, Leaderboard, Workout
 
+# Explicitly handle `_id` field in serializers
 class UserSerializer(serializers.ModelSerializer):
+    _id = serializers.CharField(read_only=True)
+
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['_id', 'email', 'name', 'age', 'created_at']
 
 class TeamSerializer(serializers.ModelSerializer):
+    _id = serializers.CharField(read_only=True)
+    members = serializers.ListField(child=serializers.CharField(), read_only=True)
+
     class Meta:
         model = Team
-        fields = '__all__'
+        fields = ['_id', 'name', 'members']
 
-# Fix redundant `source='id'` in ActivitySerializer
 class ActivitySerializer(serializers.ModelSerializer):
-    id = serializers.CharField(read_only=True)
-    user = serializers.CharField(source='user.id', read_only=True)
+    _id = serializers.CharField(read_only=True)
+    user = serializers.CharField(source='user._id', read_only=True)
 
     class Meta:
         model = Activity
-        fields = '__all__'
+        fields = ['_id', 'user', 'activity_type', 'duration', 'date']
 
-# Fix redundant `source='id'` in LeaderboardSerializer
 class LeaderboardSerializer(serializers.ModelSerializer):
-    id = serializers.CharField(read_only=True)
-    team = serializers.CharField(source='team.id', read_only=True)
+    _id = serializers.CharField(read_only=True)
+    team = serializers.CharField(source='team._id', read_only=True)
 
     class Meta:
         model = Leaderboard
-        fields = '__all__'
+        fields = ['_id', 'team', 'points']
 
 class WorkoutSerializer(serializers.ModelSerializer):
+    _id = serializers.CharField(read_only=True)
+
     class Meta:
         model = Workout
-        fields = '__all__'
+        fields = ['_id', 'name', 'description', 'duration']
